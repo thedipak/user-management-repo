@@ -13,6 +13,9 @@ function App() {
     getAllUsers();
   }, []);
 
+  // git remote set-url origin git@github.com:ppreyer/first_app.git
+  // git remote set-url origin https://github.com/thedipak/user-management-repo.git
+
   function getAllUsers(){
     axios.get("http://localhost:5000/getUser")
       .then(res => {
