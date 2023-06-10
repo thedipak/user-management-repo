@@ -7,38 +7,85 @@ function App() {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
-  const [response, setResponse] = useState("");
+  const [allUsers, setAllUsers] = useState([]);
 
+  useEffect(() => {
+    getAllUsers();
+  }, []);
+
+  function getAllUsers(){
+    axios.get("http://localhost:5000/getUser")
+      .then(res => {
+        console.log("res",res)
+        setAllUsers(res.data);
+      } )
+      .then(() => console.log("all users", allUsers))
+      .catch(err => console.log(err));
+  }
 
   function handleSubmit(e) {
     e.preventDefault();
-    const obj = {
+    const payload = {
       name,
       phone,
       email
     }
-    console.log(obj);
 
-    axios.get("http://localhost:5000/getUser")
+    axios.post("http://localhost:5000/setUser", payload)
     .then(res => {
-      console.log("inside then", res);
-      setResponse(res.data.message.email);
       setName("");
       setPhone("");
       setEmail("");
     })
     .catch(err => console.log(err));
+
+    // YOU CAN ALTERNATIVELY USE FETCH METHOD: 
+    // fetch("/api/", {
+    //   method: "POST",
+    //   data: JSON.stringify(payload)
+    // })
+    //   .then(response => response.json())
+    //   .then(res => {
+    //     setName("");
+    //     setPhone("");
+    //     setEmail("");
+    //   })
+    //   .catch(err => console.log(err));
+
   }
+
+
+
+
   return (
     <div className="container">
+
       <h1> User's Directory </h1>
-      <input type="text" value={name} placeholder="name" onChange={e => setName(e.target.value)} />
-      <input type="number" value={phone} placeholder="phone" onChange={e => setPhone(e.target.value)} />
-      <input type="email" value={email} placeholder="email" onChange={e => setEmail(e.target.value)} />
-      <button onClick={handleSubmit}> Submit </button>
-      { response? <h2> {response} </h2> : null}
+      <form onSubmit={handleSubmit}>
+        <input type="text" value={name} required placeholder="name*" onChange={e => setName(e.target.value)} />
+        <input type="number" value={phone} required placeholder="phone*" onChange={e => setPhone(e.target.value)} />
+        <input type="email" value={email} placeholder="email" onChange={e => setEmail(e.target.value)} />
+        <button type='submit'> Submit </button>
+      </form>
+
+      <h1> All Registered Users</h1>
+
+      { allUsers.length ? allUsers.map((user) =>{
+        console.log(user);
+        return(
+          <div>
+            <h3>{user.name}</h3>
+          </div>
+          )
+      }) : null}
+
+
     </div>
   );
 }
 
 export default App;
+
+
+
+
