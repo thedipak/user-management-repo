@@ -63,7 +63,7 @@ function App() {
   return (
     <div className="container">
 
-      <h1> User's Directory 4 </h1>
+      <h1> User's Directory 40 </h1>
       <form onSubmit={handleSubmit}>
         <input type="text" value={name} required placeholder="name*" onChange={e => setName(e.target.value)} />
         <input type="number" value={phone} required placeholder="phone*" onChange={e => setPhone(e.target.value)} />
