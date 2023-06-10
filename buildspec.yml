@@ -1,15 +1,34 @@
-version: 0.2
+# version: 0.2
 
+# phases:
+#   pre_build:
+#     commands:
+#       - npm install
+#   build:
+#     commands:
+#       - npm run build
+
+# artifacts:
+#   files:
+#     - '**/*'
+#   discard-paths: no
+#   base-directory: build
+
+version: 0.1
 phases:
   pre_build:
     commands:
+      - echo Installing NPM dependencies...
       - npm install
   build:
     commands:
+      - echo Build started...
       - npm run build
-
+  post_build:
+    commands:
+      # copy the contents of /build to S3
+      - aws s3 cp --recursive --acl public-read ./build s3://${usersmanagement}/ 
 artifacts:
   files:
     - '**/*'
-  discard-paths: no
   base-directory: build
