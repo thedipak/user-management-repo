@@ -1,26 +1,7 @@
-# version: 0.2
-
-# phases:
-#   pre_build:
-#     commands:
-#       - npm install
-#   build:
-#     commands:
-#       - npm run build
-
-# artifacts:
-#   files:
-#     - '**/*'
-#   discard-paths: no
-#   base-directory: build
-
-
 version: 0.2
 
 phases:
-  install:
-    # runtime-versions:
-    #   nodejs: 12
+  pre_build:
     commands:
         - npm install
   build:
@@ -31,31 +12,4 @@ artifacts:
     - '**/*'
   discard-paths: no
   base-directory: build
-  # # include all files required to run application
-  # # notably excluded is node_modules, as this will cause overwrite error on deploy
-  # files:
-  #   - public/**/*
-  #   - src/**/*
-  #   - package.json
-  #   - appspec.yml
-  #   - scripts/**/*
 
-
-# version: 0.1
-# phases:
-#   pre_build:
-#     commands:
-#       - echo Installing NPM dependencies...
-#       - npm install
-#   build:
-#     commands:
-#       - echo Build started...
-#       - npm run build
-#   post_build:
-#     commands:
-#       # copy the contents of /build to S3
-#       - aws s3 cp --recursive --acl public-read ./build s3://${usersmanagement}/ 
-# artifacts:
-#   files:
-#     - '**/*'
-#   base-directory: build
