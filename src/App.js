@@ -7,7 +7,7 @@ function App() {
   return (
     <div className="container">
 
-      <h1> User's Directory</h1>
+      <h1> User Directory</h1>
 
       <Form />
     
