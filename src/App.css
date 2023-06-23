@@ -55,3 +55,13 @@ button {
   width: 250px;
   font-size: 18px;
 }
+
+h1 {
+  color: blueviolet;
+}
+
+h2 {
+  margin: 30px 20px;
+  color: blueviolet;
+  font-weight: 500;
+}
